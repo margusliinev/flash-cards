@@ -113,5 +113,79 @@ h6 {
     background-color: $colorPrimary7;
 }
 
+/* FLASH CARDS */
+/* ==================================================================================================== */
+
+.flash-cards {
+    background-color: #222;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    place-items: center;
+    form {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        align-self: start;
+        label {
+            color: $colorPrimary2;
+            font-size: 1.25rem;
+            white-space: nowrap;
+        }
+        input {
+            font-size: 1.5em;
+            padding: 0.25rem;
+            background-color: $colorPrimary1;
+            border: none;
+            border-radius: $radius-sm;
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 1px 2px $colorPrimary4;
+        }
+        button {
+            background-color: $colorPrimary4;
+            color: $colorWhite;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: $radius-md;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+    }
+    @media screen and (max-width: $width-sm) {
+        label {
+            text-align: center;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr;
+            margin: 0 auto;
+        }
+    }
+}
+
+.flash-cards-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 90vw;
+    justify-content: center;
+    .card {
+        background-color: $colorWhite;
+        height: 200px;
+        width: 200px;
+        display: grid;
+        place-items: center;
+        text-transform: capitalize;
+        border-radius: $radius-sm;
+    }
+}
+
 /* END */
 /* ==================================================================================================== */
