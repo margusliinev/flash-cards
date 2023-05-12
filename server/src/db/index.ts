@@ -1,4 +1,4 @@
-import { Pool, QueryResult } from 'pg';
+import { Pool } from 'pg';
 
 const pool = new Pool({
     user: process.env.PGUSER,
@@ -8,7 +8,14 @@ const pool = new Pool({
     port: Number(process.env.PGPORT),
 });
 
-export async function query(text: string, params?: any[]): Promise<QueryResult> {
-    const result = await pool.query(text, params);
-    return result;
+export async function query(text: string, params: any[] = []) {
+    const client = await pool.connect();
+    try {
+        const result = await client.query(text, params);
+        return result.rows;
+    } catch (error) {
+        console.log(error);
+    } finally {
+        client.release();
+    }
 }

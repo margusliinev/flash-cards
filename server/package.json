@@ -2,11 +2,11 @@
     "name": "server",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
-        "dev": "nodemon src/index.ts",
+        "dev": "nodemon src/server.ts",
         "build": "npx tsc",
-        "preview": "node dist/index.js"
+        "preview": "node dist/server.js"
     },
     "keywords": [],
     "author": "",
@@ -22,6 +22,7 @@
     "dependencies": {
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
+        "express-async-errors": "^3.1.1",
         "pg": "^8.10.0"
     }
 }

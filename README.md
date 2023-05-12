@@ -10,3 +10,4 @@ This is a repository for project Flash Cards.
 -   NodeJS
 -   Express
 -   PostgreSQL
+-   React
