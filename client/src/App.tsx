@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { CgClose } from 'react-icons/cg';
 
 type TCard = {
-    id: number;
+    id: string;
     title: string;
 };
 
@@ -15,6 +16,14 @@ function App() {
         const response = await axios.post('http://localhost:3000/api/v1/cards', {
             title: title,
         });
+        setTitle('');
+        setCards([...cards, response.data.card[0]]);
+        return response.data;
+    };
+
+    const removeCard = async (deckId: String) => {
+        const response = await axios.delete(`http://localhost:3000/api/v1/cards/${deckId}`);
+        setCards(cards.filter((item) => item.id !== deckId));
         return response.data;
     };
 
@@ -34,6 +43,9 @@ function App() {
                           return (
                               <article className='card' key={card.id}>
                                   {card.title}
+                                  <button className='delete-btn' onClick={() => removeCard(card.id)}>
+                                      <CgClose />
+                                  </button>
                               </article>
                           );
                       })

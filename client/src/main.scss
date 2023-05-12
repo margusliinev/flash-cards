@@ -172,11 +172,13 @@ h6 {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     width: 90vw;
     justify-content: center;
+    padding: 1rem;
     .card {
+        position: relative;
         background-color: $colorWhite;
         height: 200px;
         width: 200px;
@@ -184,6 +186,27 @@ h6 {
         place-items: center;
         text-transform: capitalize;
         border-radius: $radius-sm;
+        background-color: #333;
+        color: $colorWhite;
+        transition: $transition;
+        .delete-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: $colorDanger;
+            font-weight: bold;
+            cursor: pointer;
+            transition: $transition;
+        }
+        .delete-btn:hover {
+            color: lighten($colorDanger, 10%);
+        }
+    }
+    .card:hover {
+        background-color: lighten(#333, 5%);
     }
 }
 

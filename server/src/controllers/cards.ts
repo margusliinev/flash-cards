@@ -16,3 +16,11 @@ export const createCard = async (req: Request, res: Response) => {
     }
     res.status(201).json({ card });
 };
+
+export const deleteCard = async (req: Request, res: Response) => {
+    const card = await query('delete from cards where id = $1', [req.params.id]);
+    if (!card) {
+        throw new Error('500 Internal Server Error');
+    }
+    res.status(204).json({ card });
+};
