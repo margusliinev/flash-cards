@@ -148,12 +148,43 @@ h6 {
             background-color: $colorPrimary4;
             color: $colorWhite;
             border: none;
-            padding: 0.6rem 1rem;
+            padding: 1rem;
             border-radius: $radius-md;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
+            align-self: end;
+            transition: $transition;
+        }
+        button:hover {
+            background-color: $colorPrimary5;
+        }
+        .form-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            div {
+                display: grid;
+                row-gap: 1rem;
+                .form-row {
+                    display: flex;
+                    gap: 1rem;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                @media screen and (max-width: $width-sm) {
+                    .form-row {
+                        display: grid;
+                        justify-items: left;
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: $width-sm) {
+            .form-container {
+                display: grid;
+            }
         }
     }
     @media screen and (max-width: $width-sm) {
@@ -179,16 +210,16 @@ h6 {
     padding: 1rem;
     .card {
         position: relative;
-        background-color: $colorWhite;
         height: 200px;
         width: 200px;
         display: grid;
         place-items: center;
         text-transform: capitalize;
         border-radius: $radius-sm;
-        background-color: #333;
         color: $colorWhite;
         transition: $transition;
+        perspective: 1500px;
+        text-align: center;
         .delete-btn {
             position: absolute;
             top: 0.5rem;
@@ -205,9 +236,47 @@ h6 {
             color: lighten($colorDanger, 10%);
         }
     }
-    .card:hover {
-        background-color: lighten(#333, 5%);
-    }
+}
+
+.question,
+.answer {
+    padding: 1rem;
+}
+
+.card-side {
+    backface-visibility: hidden;
+    transition: all 2s linear;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $radius-sm;
+}
+
+.card-back,
+.card-front {
+    background-color: #333;
+}
+
+.card-front {
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    display: grid;
+    place-items: center;
+}
+
+.card-active .card-front {
+    transform: rotateY(-180deg);
+}
+
+.card-active .card-back {
+    transform: rotateY(0);
 }
 
 /* END */

@@ -5,20 +5,28 @@ import { CgClose } from 'react-icons/cg';
 type TCard = {
     id: string;
     title: string;
+    answer: string;
 };
 
 function App() {
     const [title, setTitle] = useState('');
+    const [answer, setAnswer] = useState('');
     const [cards, setCards] = useState<TCard[]>([]);
 
     const addCard = async (e: React.FormEvent) => {
         e.preventDefault();
-        const response = await axios.post('http://localhost:3000/api/v1/cards', {
-            title: title,
-        });
-        setTitle('');
-        setCards([...cards, response.data.card[0]]);
-        return response.data;
+        if (title && answer) {
+            const response = await axios.post('http://localhost:3000/api/v1/cards', {
+                title: title,
+                answer: answer,
+            });
+            setTitle('');
+            setAnswer('');
+            setCards([...cards, response.data.card[0]]);
+            return response.data;
+        } else {
+            return;
+        }
     };
 
     const removeCard = async (deckId: String) => {
@@ -41,22 +49,46 @@ function App() {
                 {cards.length > 0
                     ? cards.map((card) => {
                           return (
-                              <article className='card' key={card.id}>
-                                  {card.title}
-                                  <button className='delete-btn' onClick={() => removeCard(card.id)}>
-                                      <CgClose />
-                                  </button>
+                              <article
+                                  className='card'
+                                  key={card.id}
+                                  onClick={(e) => {
+                                      e.currentTarget.classList.toggle('card-active');
+                                  }}
+                              >
+                                  <div className='card-side card-front'>
+                                      <p className='question'>{card.title}</p>
+                                      <button className='delete-btn' onClick={() => removeCard(card.id)}>
+                                          <CgClose />
+                                      </button>
+                                  </div>
+                                  <div className='card-side card-back'>
+                                      <p className='answer'>{card.answer}</p>
+                                      <button className='delete-btn' onClick={() => removeCard(card.id)}>
+                                          <CgClose />
+                                      </button>
+                                  </div>
                               </article>
                           );
                       })
                     : null}
             </div>
             <form>
-                <label htmlFor='card-title'>Card Title</label>
-                <input id='card-title' type='text' value={title} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)} />
-                <button type='submit' onClick={addCard}>
-                    Add Card
-                </button>
+                <div className='form-container'>
+                    <div>
+                        <div className='form-row'>
+                            <label htmlFor='card-title'>Card Question:</label>
+                            <input id='card-title' type='text' value={title} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)} />
+                        </div>
+                        <div className='form-row'>
+                            <label htmlFor='card-answer'>Card Answer:</label>
+                            <input id='card-answer' type='text' value={answer} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswer(e.currentTarget.value)} />
+                        </div>
+                    </div>
+                    <button type='submit' onClick={addCard}>
+                        Add Card
+                    </button>
+                </div>
             </form>
         </div>
     );

@@ -10,7 +10,7 @@ export const getAllCards = async (req: Request, res: Response) => {
 };
 
 export const createCard = async (req: Request, res: Response) => {
-    const card = await query('insert into cards (title) values ($1) returning *', [req.body.title]);
+    const card = await query('insert into cards (title, answer) values ($1, $2) returning *', [req.body.title, req.body.answer]);
     if (!card) {
         throw new Error('500 Internal Server Error');
     }
